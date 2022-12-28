@@ -1,0 +1,51 @@
+#include <iostream>
+
+using namespace std;
+
+void selection_short
+(int arr[], int nim)
+{
+    int temp;
+    int nomor;
+
+    for (int i = 0; i < nim; i++)
+    {
+        nomor = i;
+        for (int j  = i; j < nim; j++)
+        {
+            if (arr[j] < arr[nomor])
+            {
+                nomor = j;
+            }
+        }
+        
+        temp = arr[i];
+        arr[i] = arr[nomor];
+        arr[nomor] = temp;
+    }
+}
+
+void print_array
+(int arr[], int nim)
+{
+    for (int i = 0; i < nim; i++)
+    {
+        cout << arr[i] << " ";
+    }
+    cout << endl;    
+}
+
+int main()
+{
+    int angka[8] = {10,11,23,21,0,0,8,7};
+    cout <<"Sebelum sort : ";
+    print_array(angka,8);
+    selection_short(angka,8);
+    
+    cout<<endl;
+    
+    cout <<"Sesudah sort : ";
+    print_array(angka,8);
+
+    return 0;
+}
