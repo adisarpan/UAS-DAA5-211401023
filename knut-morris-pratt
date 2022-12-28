@@ -1,0 +1,161 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <time.h>
+
+using namespace std;
+
+void pertialmacthtable(string p, int pi[])
+{
+    int m = p.length();
+    int q;
+    pi[0] = -1;
+
+    for (int i = 1; i < m; i++)
+    {
+        q - pi[i -1];
+        while (q >= 0)
+        {
+            if (p[q] == p[i -1])
+            break;
+            else
+            q = pi[q];
+        }
+        pi[i] = q + 1;
+    }
+    
+}
+
+int kmp (string p, string t)
+{
+    int n = t.length();
+    int m = p.length();
+    int pi[m];
+
+    pertialmacthtable;
+
+    int i = 0;
+    int q = 0;
+
+    while (i < n)
+    {
+        if (q == -1)
+        {
+            ++i;
+            q = 0;
+        }
+        else if (t[i] == p[q])
+        {
+            ++i;
+            ++q;
+            if (q == m)
+            {
+                return i;
+            }
+        }
+        else
+        q = pi[q];
+    }
+    return 0;
+}
+
+int findline(int i, string namafile)
+{
+    ifstream file(namafile);
+    string target = "";
+    string line;
+    int result = 0;
+    int linecout = 0;
+
+    while (!file.eof())
+    {
+        getline(file, line);
+        target += line;
+
+        if (result == 0 && target.length() > i)
+        {
+            result = linecout;
+        }
+        
+        ++linecout;
+    }
+    file.close();
+
+    return result;
+}
+
+int main(int argc, char *argv[])
+{
+    if (argc != 2)
+    {
+        cout <<"Cara menggunakan :"<<argv[0] << "</../nameOfText.txt>" <<endl;
+    }
+    else
+    {
+        string namafile = argv[1];
+        ifstream file(namafile);
+
+        string line;
+        char answer;
+        int linecout = 0;
+        int start;
+        int end;
+        string target = "";
+        string pattern;
+
+        if (!file.is_open())
+        {
+            cout <<"Tidak bisa membuka file " <<endl;
+        }
+        else
+        {
+            while (!file.eof())
+            {
+                getline(file, line);
+                target += line;
+                ++linecout;
+            }
+
+            cout <<"Jumlah baris pada file : "<<linecout <<endl;
+            file.close();
+
+            cout <<"Jalankan pencarian menggunakan metode kmp ? (y/n";
+            cin >> answer;
+            cin.ignore();
+
+            while (answer == 'y' || answer == 'Y')
+            {
+                cout <<"Masukkan Kata sandi :";
+                getline(cin,pattern);
+
+                start = clock();
+                cout << endl <<"============="<< endl<<endl;
+
+                int rest = kmp(pattern, target);
+                if (rest > 0)
+                {
+                    int linetarget = findline(rest, namafile);
+                    cout <<"Kata kunci ditemukan pada : " <<endl;
+                    cout <<"index :" << rest <<endl;
+                    cout <<"line : " << linetarget <<endl;
+                }
+                else
+                cout << "Kata Kunci '"<< pattern << "' Tidak ditemukan" << endl;
+
+                end = clock();
+
+                cout <<"Durasi : " <<((float)end - start)/CLOCKS_PER_SEC <<"detik" << endl;
+                cout <<"--------------------------------" <<endl;
+                cout <<"Jalankan lagi ? (y/n) ";
+                cin>> answer;
+                cin.ignore();
+            }
+            
+            
+        }
+        
+        
+    }
+    
+    return 0;
+}
