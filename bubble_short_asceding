@@ -1,0 +1,35 @@
+//Asceding
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int nim[10]= {10,11,23,21,0,0,8,7};
+    int tukar;
+
+    cout <<"Data awal : \n";
+    for (int i = 0; i < 10; i++)
+    {
+        cout <<" "<<nim[i];
+    }
+
+    cout <<endl<<endl;
+    for (int x = 0; x < 9; x++)
+    for (int y = 0; y < 9; y++)
+    if  (nim[y] > nim [y+1])
+    
+   
+    
+    {
+        tukar = nim[y+1];
+        nim[y+1] = nim[y];
+        nim[y] = tukar;
+    }
+
+    cout <<"Data setelah diurut : \n";
+    for(int z=0;z < 10; z++)
+    cout <<" "<<nim[z];
+    cout <<endl<<endl;
+}
