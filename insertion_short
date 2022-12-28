@@ -1,0 +1,53 @@
+#include <iostream>
+
+using namespace std;
+
+void tampil_array
+(char nilai[20], int n)
+
+{
+    for (int i = 0; i < n; i++)
+    {
+        cout <<nilai[i];
+    }
+    cout <<endl;
+    
+}
+
+int main()
+{
+    char nilai[20];
+    int i,n,j,temp;
+
+    cout <<"Masukkan Banyak Elemen Array : ";
+    cin>>n;
+    cout <<endl;
+
+    for (int i = 0; i < n; i++)
+    {
+        cout <<"elemen array ke" <<i<<":";
+        cin>> nilai[i];
+    }
+
+    cout <<"\n data sebelum di urut : ";
+    tampil_array(nilai,n);
+    for (int i = 0; i < n; i++)
+    {
+        temp = nilai[i];
+        j = i -1;
+        while (nilai[j] > temp && j >  0)
+        {
+            nilai[j+1] = nilai[j];
+            j--;
+        }
+        nilai[j+1] = temp;
+        
+    }
+
+    cout <<"\n Data setelah diurut : ";
+    tampil_array(nilai,n);
+
+    return 0;
+    
+    
+}
